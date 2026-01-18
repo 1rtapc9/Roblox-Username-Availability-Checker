@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Analytics</title>
+</head>
+<body>
+  <h1>Local Analytics</h1>
+  <pre id="data"></pre>
+
+  <script>
+    document.getElementById("data").textContent =
+      JSON.stringify(JSON.parse(localStorage.getItem("analytics") || "{}"), null, 2);
+  </script>
+</body>
+</html>
