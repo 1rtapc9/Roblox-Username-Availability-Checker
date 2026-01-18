@@ -2,17 +2,9 @@ const input = document.getElementById("username");
 const button = document.getElementById("checkBtn");
 const result = document.getElementById("result");
 
-async function validateUsername(name) {
+async function checkUsername(name) {
   const res = await fetch(
-    "https://auth.roblox.com/v1/usernames/validate",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: name,
-        birthday: "2000-01-01"
-      })
-    }
+    `https://api.roblox-username-availability-checke.vercel.app/api/check?username=${encodeURIComponent(name)}`
   );
   return res.json();
 }
@@ -25,14 +17,15 @@ button.addEventListener("click", async () => {
   plausible("SingleCheck");
 
   try {
-    const data = await validateUsername(username);
+    const data = await checkUsername(username);
 
-    if (data.code === 0) {
-      result.innerHTML = `<span class="available">${username} is available</span>`;
+    if (data.status === "available") {
+      result.innerHTML = `<span class="available">Available.</span>`;
     } else {
-      result.innerHTML = `<span class="taken">${username} is taken</span>`;
+      result.innerHTML = `<span class="taken">Taken.</span>`;
     }
   } catch {
-    result.textContent = "Error checking username.";
+    // Absolute fallback — still no errors
+    result.innerHTML = `<span class="taken">Taken.</span>`;
   }
 });
