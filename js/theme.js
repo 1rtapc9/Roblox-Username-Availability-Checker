@@ -1,23 +1,9 @@
-const toggle = document.getElementById("themeToggle");
-const root = document.documentElement;
+const btn = document.getElementById("themeToggle");
+const theme = localStorage.getItem("theme") || "light";
+document.documentElement.dataset.theme = theme;
 
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) {
-  root.setAttribute("data-theme", savedTheme);
-}
-
-function updateIcon() {
-  toggle.textContent =
-    root.getAttribute("data-theme") === "light" ? "☀️" : "🌙";
-}
-
-updateIcon();
-
-toggle.addEventListener("click", () => {
-  const newTheme =
-    root.getAttribute("data-theme") === "light" ? "dark" : "light";
-
-  root.setAttribute("data-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-  updateIcon();
-});
+btn.onclick = () => {
+  const t = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem("theme", t);
+};
