@@ -1,0 +1,67 @@
+## `css/styles.css`
+}
+
+
+.brand-wrap { display: flex; align-items: center; gap: 10px; }
+.logo { width: 36px; }
+.brand { font-weight: 700; }
+
+
+.theme-toggle {
+background: none;
+border: none;
+font-size: 1.2rem;
+cursor: pointer;
+color: var(--text);
+}
+
+
+.card {
+background: var(--card);
+width: 100%;
+max-width: 460px;
+padding: 28px;
+border-radius: 18px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+
+input, textarea {
+width: 100%;
+padding: 12px;
+border-radius: 10px;
+border: none;
+margin-bottom: 10px;
+}
+
+
+textarea { min-height: 80px; resize: vertical; }
+
+
+button {
+width: 100%;
+padding: 12px;
+border-radius: 10px;
+border: none;
+background: var(--accent);
+font-weight: 600;
+cursor: pointer;
+}
+
+
+.result, #bulkResult, #suggestions {
+margin-top: 12px;
+font-size: 0.95rem;
+}
+
+
+.available { color: var(--success); }
+.taken { color: var(--error); }
+
+
+footer {
+margin-top: auto;
+padding: 16px;
+font-size: 0.75rem;
+opacity: 0.6;
+}
