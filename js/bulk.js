@@ -27,7 +27,7 @@ bulkBtn.addEventListener("click", async () => {
       );
 
       const data = await res.json();
-      const cls = data.code === 0 ? "available" : "taken";
+      const cls = data.status === "available" ? "available" : "taken";
 
       bulkResult.innerHTML += `<div class="${cls}">${name}</div>`;
 
