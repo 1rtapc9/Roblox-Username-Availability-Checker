@@ -2,96 +2,64 @@ const input = document.getElementById("username");
 const button = document.getElementById("checkBtn");
 const result = document.getElementById("result");
 
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
-const RATE_LIMIT_MS = 800;
+const CACHE_TTL = 86400000;
+const RATE_LIMIT = 800;
+let lastCall = 0;
 
-let lastRequestTime = 0;
-
-/* ---------- Utilities ---------- */
-
-function now() {
-  return Date.now();
-}
-
-function normalizeUsername(name) {
-  return name
-    .trim()
-    .replace(/\s+/g, "")
-    .slice(0, 20);
+function normalize(name) {
+  return name.trim().replace(/\s+/g, "").slice(0, 20);
 }
 
 function getCache(name) {
-  const cache = JSON.parse(localStorage.getItem("usernameCache") || "{}");
-  const entry = cache[name];
-  if (!entry) return null;
-  if (now() - entry.time > CACHE_TTL) return null;
-  return entry.status;
+  const c = JSON.parse(localStorage.getItem("cache") || "{}");
+  if (!c[name]) return null;
+  if (Date.now() - c[name].t > CACHE_TTL) return null;
+  return c[name].s;
 }
 
-function setCache(name, status) {
-  const cache = JSON.parse(localStorage.getItem("usernameCache") || "{}");
-  cache[name] = { status, time: now() };
-  localStorage.setItem("usernameCache", JSON.stringify(cache));
+function setCache(name, s) {
+  const c = JSON.parse(localStorage.getItem("cache") || "{}");
+  c[name] = { s, t: Date.now() };
+  localStorage.setItem("cache", JSON.stringify(c));
 }
 
-function track(event) {
-  const stats = JSON.parse(localStorage.getItem("analytics") || "{}");
-  stats[event] = (stats[event] || 0) + 1;
-  localStorage.setItem("analytics", JSON.stringify(stats));
+function track(k) {
+  const a = JSON.parse(localStorage.getItem("analytics") || "{}");
+  a[k] = (a[k] || 0) + 1;
+  localStorage.setItem("analytics", JSON.stringify(a));
 }
 
-/* ---------- Core Check ---------- */
-
-async function checkUsername(name) {
+async function check(name) {
   const cached = getCache(name);
   if (cached) return cached;
 
   if (!navigator.onLine) return "taken";
 
-  const elapsed = now() - lastRequestTime;
-  if (elapsed < RATE_LIMIT_MS) {
-    await new Promise(r => setTimeout(r, RATE_LIMIT_MS - elapsed));
-  }
-
-  lastRequestTime = now();
+  const wait = RATE_LIMIT - (Date.now() - lastCall);
+  if (wait > 0) await new Promise(r => setTimeout(r, wait));
+  lastCall = Date.now();
 
   try {
-    const res = await fetch(
-      "https://auth.roblox.com/v1/usernames/validate",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: name,
-          birthday: "2000-01-01"
-        })
-      }
-    );
+    const r = await fetch("https://auth.roblox.com/v1/usernames/validate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: name, birthday: "2000-01-01" })
+    });
 
-    const data = await res.json();
-    const status = data.code === 0 ? "available" : "taken";
-
-    setCache(name, status);
-    return status;
+    const d = await r.json();
+    const s = d.code === 0 ? "available" : "taken";
+    setCache(name, s);
+    return s;
   } catch {
     return "taken";
   }
 }
 
-/* ---------- UI ---------- */
-
-button.addEventListener("click", async () => {
-  let name = normalizeUsername(input.value);
+button.onclick = async () => {
+  const name = normalize(input.value);
   if (!name) return;
-
   result.textContent = "Checking...";
-  track("singleCheck");
-
-  const status = await checkUsername(name);
-
-  if (status === "available") {
-    result.innerHTML = `<span class="available">Available.</span>`;
-  } else {
-    result.innerHTML = `<span class="taken">Taken.</span>`;
-  }
-});
+  track("single");
+  const s = await check(name);
+  result.innerHTML = `<span class="${s}">${s === "available" ? "Available." : "Taken."}</span>`;
+};
