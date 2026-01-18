@@ -1,78 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>Roblox Username Availability Checker</title>
+  <meta name="description" content="Check Roblox username availability instantly. Bulk checks, smart suggestions, fast and privacy-friendly." />
 
-<title>Roblox Username Availability Checker | AI Tool</title>
-<meta name="description" content="Check Roblox username availability instantly. Fast, accurate, privacy-friendly Roblox username checker with bulk checks and suggestions." />
+  <!-- SEO / OpenGraph -->
+  <meta property="og:title" content="Roblox Username Availability Checker" />
+  <meta property="og:description" content="Instant Roblox username availability checker with bulk checking and suggestions." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://roblox-username-availability-checke.vercel.app" />
 
+  <link rel="canonical" href="https://roblox-username-availability-checke.vercel.app" />
+  <link rel="stylesheet" href="css/styles.css" />
 
-<!-- SEO / OpenGraph -->
-<meta property="og:title" content="Roblox Username Availability Checker" />
-<meta property="og:description" content="Instant Roblox username availability checker with AI-style suggestions." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://roblox-username-availability-checke.vercel.app" />
-
-
-<link rel="canonical" href="https://roblox-username-availability-checke.vercel.app" />
-<link rel="stylesheet" href="css/styles.css" />
-
-
-<!-- Plausible Analytics -->
-<script defer data-domain="roblox-username-availability-checke.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <!-- Plausible Analytics -->
+  <script
+    defer
+    data-domain="roblox-username-availability-checke.vercel.app"
+    src="https://plausible.io/js/script.js">
+  </script>
 </head>
 <body>
-<header class="header">
-<div class="brand-wrap">
-<img src="assets/logo.svg" class="logo" alt="AI Logo" />
-<span class="brand">AI Username Checker</span>
-</div>
-<button id="themeToggle" class="theme-toggle">🌙</button>
-</header>
 
+  <header class="header">
+    <div class="brand-wrap">
+      <img src="assets/logo.svg" alt="AI Logo" class="logo" />
+      <span class="brand">AI Username Checker</span>
+    </div>
 
-<main class="card">
-<h1>Roblox Username Checker</h1>
-<p class="subtitle">Check availability instantly</p>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+      🌙
+    </button>
+  </header>
 
+  <main class="card">
+    <h1>Roblox Username Checker</h1>
+    <p class="subtitle">Check username availability instantly</p>
 
-<input id="username" placeholder="Single username" />
-<button id="checkBtn">Check</button>
+    <!-- Single Check -->
+    <input id="username" type="text" placeholder="Enter a username" />
+    <button id="checkBtn">Check Availability</button>
+    <div id="result" class="result"></div>
 
+    <hr />
 
-<div id="result" class="result"></div>
+    <!-- Bulk Check -->
+    <h2>Bulk Check</h2>
+    <textarea id="bulkInput" placeholder="One username per line (max 10)"></textarea>
+    <button id="bulkBtn">Run Bulk Check</button>
+    <div id="bulkResult"></div>
 
+    <hr />
 
-<hr />
+    <!-- Suggestions -->
+    <h2>Username Suggestions</h2>
+    <input id="baseName" type="text" placeholder="Base name (optional)" />
+    <button id="suggestBtn">Generate Suggestions</button>
+    <div id="suggestions"></div>
+  </main>
 
+  <footer>
+    Not affiliated with Roblox Corporation
+  </footer>
 
-<h2>Bulk Check</h2>
-<textarea id="bulkInput" placeholder="One username per line"></textarea>
-<button id="bulkBtn">Bulk Check</button>
-<div id="bulkResult"></div>
-
-
-<hr />
-
-
-<h2>Suggestions</h2>
-<input id="baseName" placeholder="Base name (optional)" />
-<button id="suggestBtn">Generate Suggestions</button>
-<div id="suggestions"></div>
-</main>
-
-
-<footer>
-Not affiliated with Roblox Corporation
-</footer>
-
-
-<script src="js/theme.js"></script>
-<script src="js/analytics.js"></script>
-<script src="js/app.js"></script>
-<script src="js/bulk.js"></script>
-<script src="js/suggest.js"></script>
+  <!-- Scripts -->
+  <script src="js/theme.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/bulk.js"></script>
+  <script src="js/suggest.js"></script>
 </body>
 </html>
