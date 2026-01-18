@@ -1,76 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Roblox Username Availability Checker</title>
-  <meta name="description" content="Check Roblox username availability instantly. Bulk checks, smart suggestions, fast and privacy-friendly." />
 
-  <!-- SEO / OpenGraph -->
-  <meta property="og:title" content="Roblox Username Availability Checker" />
-  <meta property="og:description" content="Instant Roblox username availability checker with bulk checking and suggestions." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://roblox-username-availability-checke.vercel.app" />
+  <meta name="description" content="Check Roblox username availability instantly. Clean, fast, no errors, dark/light mode supported." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
 
-  <link rel="canonical" href="https://roblox-username-availability-checke.vercel.app" />
-  <link rel="stylesheet" href="css/styles.css" />
-
-  <!-- Plausible Analytics -->
-  <script
-    defer
-    data-domain="roblox-username-availability-checke.vercel.app"
-    src="https://plausible.io/js/script.js">
-  </script>
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
-  <header class="header">
-    <div class="brand-wrap">
-      <img src="assets/logo.svg" alt="AI Logo" class="logo" />
-      <span class="brand">AI Username Checker</span>
-    </div>
-
-    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-      🌙
-    </button>
+  <header>
+    <img src="assets/logo.svg" alt="Make AI Logo" class="logo" />
+    <h1>Roblox Username Checker</h1>
+    <button id="themeToggle" aria-label="Toggle theme">🌙</button>
   </header>
 
-  <main class="card">
-    <h1>Roblox Username Checker</h1>
-    <p class="subtitle">Check username availability instantly</p>
+  <main>
+    <section class="card">
+      <input id="username" type="text" placeholder="Enter username" maxlength="20" />
+      <button id="checkBtn">Check</button>
+      <div id="result"></div>
+    </section>
 
-    <!-- Single Check -->
-    <input id="username" type="text" placeholder="Enter a username" />
-    <button id="checkBtn">Check Availability</button>
-    <div id="result" class="result"></div>
-
-    <hr />
-
-    <!-- Bulk Check -->
-    <h2>Bulk Check</h2>
-    <textarea id="bulkInput" placeholder="One username per line (max 10)"></textarea>
-    <button id="bulkBtn">Run Bulk Check</button>
-    <div id="bulkResult"></div>
-
-    <hr />
-
-    <!-- Suggestions -->
-    <h2>Username Suggestions</h2>
-    <input id="baseName" type="text" placeholder="Base name (optional)" />
-    <button id="suggestBtn">Generate Suggestions</button>
-    <div id="suggestions"></div>
+    <section class="card">
+      <h2>Bulk Check (max 10)</h2>
+      <textarea id="bulkInput" placeholder="One username per line"></textarea>
+      <button id="bulkBtn">Run Bulk Check</button>
+      <ul id="bulkResults"></ul>
+    </section>
   </main>
 
   <footer>
-    Not affiliated with Roblox Corporation
+    <a href="api.html">API Info</a> ·
+    <a href="analytics.html">Analytics</a> ·
+    <span>roblox-username-availability-checke.vercel.app</span>
   </footer>
 
-  <!-- Scripts -->
   <script src="js/theme.js"></script>
-  <script src="js/analytics.js"></script>
   <script src="js/app.js"></script>
   <script src="js/bulk.js"></script>
-  <script src="js/suggest.js"></script>
 </body>
 </html>
